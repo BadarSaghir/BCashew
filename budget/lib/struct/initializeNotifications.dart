@@ -16,7 +16,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 Future<String?> initializeNotifications() async {
   // Since iOS cannot send scheduled notifications when the app is open
   // There is no need to listen to incoming notification payloads
-  if (getPlatform(ignoreEmulation: true) != PlatformOS.isIOS) {
+  if (getPlatform(ignoreEmulation: true) != PlatformOS.isIOS&&getPlatform(ignoreEmulation: true) == PlatformOS.isAndroid) {
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('notification_icon_android2');
     final DarwinInitializationSettings initializationSettingsDarwin =
@@ -35,12 +35,15 @@ Future<String?> initializeNotifications() async {
     );
   }
 
+  if (getPlatform(ignoreEmulation: true) == PlatformOS.isIOS||getPlatform(ignoreEmulation: true) == PlatformOS.isAndroid) {
+
   final NotificationAppLaunchDetails? notificationAppLaunchDetails =
       await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
   NotificationResponse? payload =
       notificationAppLaunchDetails?.notificationResponse;
   String? response = await payload?.payload;
   return response;
+  }
 }
 
 onSelectNotification(NotificationResponse notificationResponse) async {
