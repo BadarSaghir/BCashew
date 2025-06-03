@@ -239,27 +239,27 @@ class _AddBudgetPageState extends State<AddBudgetPage> {
         widget.budget == null &&
         appStateSettings["sharedBudgets"] == true) {
       openLoadingPopup(context);
-      bool result2 = await shareBudget(createdBudget, context);
+      // bool result2 = await shareBudget(createdBudget, context);
       popRoute(context);
-      if (result2 == false) {
-        Future.delayed(Duration.zero, () {
-          openPopup(
-            context,
-            title: "No Connection",
-            icon: appStateSettings["outlinedIcons"]
-                ? Icons.signal_wifi_connected_no_internet_4_outlined
-                : Icons.signal_wifi_connected_no_internet_4_rounded,
-            description:
-                "You can only update the details of a shared budget online.",
-            onSubmit: () {
-              popRoute(context);
-            },
-            onSubmitLabel: "ok".tr(),
-          );
-        });
-        loadingIndeterminateKey.currentState?.setVisibility(false);
-        return;
-      }
+      // if (result2 == false) {
+      //   Future.delayed(Duration.zero, () {
+      //     openPopup(
+      //       context,
+      //       title: "No Connection",
+      //       icon: appStateSettings["outlinedIcons"]
+      //           ? Icons.signal_wifi_connected_no_internet_4_outlined
+      //           : Icons.signal_wifi_connected_no_internet_4_rounded,
+      //       description:
+      //           "You can only update the details of a shared budget online.",
+      //       onSubmit: () {
+      //         popRoute(context);
+      //       },
+      //       onSubmitLabel: "ok".tr(),
+      //     );
+      //   });
+      //   loadingIndeterminateKey.currentState?.setVisibility(false);
+      //   return;
+      // }
     }
     loadingIndeterminateKey.currentState?.setVisibility(false);
     if (result == -1 && appStateSettings["sharedBudgets"] == true) {

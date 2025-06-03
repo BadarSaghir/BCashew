@@ -11,7 +11,7 @@ import 'package:budget/struct/syncClient.dart';
 import 'package:budget/widgets/navigationFramework.dart';
 import 'package:budget/widgets/periodCyclePicker.dart';
 import 'package:budget/widgets/walletEntry.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 import 'package:async/async.dart';
 import 'package:drift/drift.dart';
@@ -3540,11 +3540,11 @@ class FinanceDatabase extends _$FinanceDatabase {
         }
 
         if (transaction.sharedKey != null && budget.sharedKey != null) {
-          sendTransactionSet(transaction, budget);
+          // sendTransactionSet(transaction, budget);
           transaction =
               transaction.copyWith(sharedStatus: Value(SharedStatus.waiting));
         } else if (transaction.sharedKey == null && budget.sharedKey != null) {
-          sendTransactionAdd(transaction, budget);
+          // sendTransactionAdd(transaction, budget);
           transaction =
               transaction.copyWith(sharedStatus: Value(SharedStatus.waiting));
         }
@@ -4006,7 +4006,7 @@ class FinanceDatabase extends _$FinanceDatabase {
   // ************************************************************
   // ************************************************************
 
-  // create or update a category
+  // // create or update a category
   Future<int> createOrUpdateCategory(
     TransactionCategory category, {
     bool updateSharedEntry = true,
@@ -4031,8 +4031,8 @@ class FinanceDatabase extends _$FinanceDatabase {
     int result = await into(categories)
         .insert((companionToInsert), mode: InsertMode.insertOrReplace);
 
-    if (updateSharedEntry)
-      updateTransactionOnServerAfterChangingCategoryInformation(category);
+    // if (updateSharedEntry)
+      // updateTransactionOnServerAfterChangingCategoryInformation(category);
     return result;
   }
 
@@ -4234,23 +4234,23 @@ class FinanceDatabase extends _$FinanceDatabase {
     budget = budget.copyWith(name: budget.name.trim());
     // print(budget);
 
-    if (budget.sharedKey != null && updateSharedEntry == true) {
-      FirebaseFirestore? db = await firebaseGetDBInstance();
-      if (db == null) {
-        return -1;
-      }
-      DocumentReference collectionRef =
-          db.collection('budgets').doc(budget.sharedKey);
-      collectionRef.update({
-        "name": budget.name,
-        "amount": budget.amount,
-        "colour": budget.colour,
-        "startDate": budget.startDate,
-        "endDate": budget.endDate,
-        "periodLength": budget.periodLength,
-        "reoccurrence": enumRecurrence[budget.reoccurrence],
-      });
-    }
+    // if (budget.sharedKey != null && updateSharedEntry == true) {
+    //   FirebaseFirestore? db = await firebaseGetDBInstance();
+    //   if (db == null) {
+    //     return -1;
+    //   }
+    //   DocumentReference collectionRef =
+    //       db.collection('budgets').doc(budget.sharedKey);
+    //   collectionRef.update({
+    //     "name": budget.name,
+    //     "amount": budget.amount,
+    //     "colour": budget.colour,
+    //     "startDate": budget.startDate,
+    //     "endDate": budget.endDate,
+    //     "periodLength": budget.periodLength,
+    //     "reoccurrence": enumRecurrence[budget.reoccurrence],
+    //   });
+    // }
 
     budget = budget.copyWith(dateTimeModified: Value(DateTime.now()));
     BudgetsCompanion companionToInsert = budget.toCompanion(true);
@@ -4824,9 +4824,9 @@ class FinanceDatabase extends _$FinanceDatabase {
     if (budget.sharedKey != null) {
       loadingIndeterminateKey.currentState?.setVisibility(true);
       if (budget.sharedOwnerMember == SharedOwnerMember.owner) {
-        bool result = await removedSharedFromBudget(budget);
+        // bool result = await removedSharedFromBudget(budget);
       } else {
-        bool result = await leaveSharedBudget(budget);
+        // bool result = await leaveSharedBudget(budget);
       }
       loadingIndeterminateKey.currentState?.setVisibility(false);
     }
@@ -4889,7 +4889,7 @@ class FinanceDatabase extends _$FinanceDatabase {
           transactionToDelete.sharedReferenceBudgetPk != null) {
         Budget budget = await database
             .getBudgetInstance(transactionToDelete.sharedReferenceBudgetPk!);
-        sendTransactionDelete(transactionToDelete, budget);
+        // sendTransactionDelete(transactionToDelete, budget);
       }
     }
     await createDeleteLog(DeleteLogType.Transaction, transactionPk);
@@ -4911,7 +4911,7 @@ class FinanceDatabase extends _$FinanceDatabase {
             transactionToDelete.sharedReferenceBudgetPk != null) {
           Budget budget = await database
               .getBudgetInstance(transactionToDelete.sharedReferenceBudgetPk!);
-          sendTransactionDelete(transactionToDelete, budget);
+          // sendTransactionDelete(transactionToDelete, budget);
         }
       }
     }

@@ -20,7 +20,7 @@ import 'package:budget/widgets/openBottomSheet.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:budget/colors.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:budget/widgets/framework/popupFramework.dart';
 
@@ -216,10 +216,10 @@ Future<bool> shareFeedback(String feedbackText, String feedbackType,
   }
 
   try {
-    FirebaseFirestore? db = await firebaseGetDBInstanceAnonymous();
-    if (db == null) {
-      throw ("Can't connect to db");
-    }
+    // FirebaseFirestore? db = await firebaseGetDBInstanceAnonymous();
+    // if (db == null) {
+    //   throw ("Can't connect to db");
+    // }
     Map<String, dynamic> feedbackEntry = {
       "stars": (selectedStars ?? -1) + 1,
       "feedback": feedbackText,
@@ -229,9 +229,10 @@ Future<bool> shareFeedback(String feedbackText, String feedbackType,
       "platform": getPlatform().toString(),
       "appVersion": getVersionString(),
     };
+    //TODO: REPLACE WITH SOMETHING ELSE FOR DB
 
-    DocumentReference feedbackCreatedOnCloud =
-        await db.collection("feedback").add(feedbackEntry);
+    // DocumentReference feedbackCreatedOnCloud =
+    //     await db.collection("feedback").add(feedbackEntry);
 
     openSnackbar(SnackbarMessage(
         title: "feedback-shared".tr(),

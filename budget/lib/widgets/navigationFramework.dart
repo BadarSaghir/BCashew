@@ -317,9 +317,10 @@ Future<bool> runAllCloudFunctions(BuildContext context,
       await parseEmailsInBackground(context, forceParse: true);
     }
     loadingIndeterminateKey.currentState?.setVisibility(true);
-    await syncPendingQueueOnServer(); //sync before download
+    //TODO FIND ALERNATIVES
+    // await syncPendingQueueOnServer(); //sync before download
     loadingIndeterminateKey.currentState?.setVisibility(true);
-    await getCloudBudgets();
+    // await getCloudBudgets();
     loadingIndeterminateKey.currentState?.setVisibility(true);
     await createBackupInBackground(context);
     loadingIndeterminateKey.currentState?.setVisibility(true);

@@ -129,11 +129,14 @@ Future<bool> signInGoogle(
               ]
             : [])
       ];
-      googleSignIn = getPlatform() == PlatformOS.isIOS
-          ? signIn.GoogleSignIn(
-              clientId: DefaultFirebaseOptions.currentPlatform.iosClientId,
-              scopes: scopes)
-          : signIn.GoogleSignIn.standard(scopes: scopes);
+      //TODO: AUTH WITHOUT FIREBASE
+      googleSignIn =
+      // getPlatform() == PlatformOS.isIOS
+      //     ? signIn.GoogleSignIn(
+      //         clientId: DefaultFirebaseOptions.currentPlatform.iosClientId,
+      //         scopes: scopes)
+      //     : 
+          signIn.GoogleSignIn.standard(scopes: scopes);
       // googleSignIn?.currentUser?.clearAuthCache();
 
       final signIn.GoogleSignInAccount? account = silentSignIn == true
@@ -281,9 +284,10 @@ Future<bool> signInAndSync(BuildContext context,
       loadingIndeterminateKey.currentState?.setVisibility(true);
       await syncData(context);
       loadingIndeterminateKey.currentState?.setVisibility(true);
-      await syncPendingQueueOnServer();
+      // TODO: USE OPENSOURCE ALTERNATIVE
+      // await syncPendingQueueOnServer();
       loadingIndeterminateKey.currentState?.setVisibility(true);
-      await getCloudBudgets();
+      // await getCloudBudgets();
       loadingIndeterminateKey.currentState?.setVisibility(true);
       await createBackupInBackground(context);
     } else {

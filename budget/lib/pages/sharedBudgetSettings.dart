@@ -11,7 +11,7 @@ import 'package:budget/widgets/openSnackbar.dart';
 import 'package:budget/widgets/tappable.dart';
 import 'package:budget/widgets/textWidgets.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:budget/colors.dart';
@@ -43,27 +43,27 @@ class _SharedBudgetSettingsState extends State<SharedBudgetSettings> {
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () async {
-      dynamic response =
-          await getMembersFromBudget(widget.budget.sharedKey!, widget.budget);
-      if (response == null) {
-        openSnackbar(SnackbarMessage(title: "Connection error"));
-        setState(() {
-          isErrored = true;
-        });
-        return;
-      } else if (response == false) {
-        setState(() {
-          members = [];
-          isLoaded = false;
-        });
-        return;
-      }
-      print(FirebaseAuth.instance.currentUser!.email);
-      print(widget.budget.sharedOwnerMember);
-      setState(() {
-        members = response;
-        isLoaded = true;
-      });
+      // dynamic response =
+      //     await getMembersFromBudget(widget.budget.sharedKey!, widget.budget);
+      // if (response == null) {
+      //   openSnackbar(SnackbarMessage(title: "Connection error"));
+      //   setState(() {
+      //     isErrored = true;
+      //   });
+      //   return;
+      // } else if (response == false) {
+      //   setState(() {
+      //     members = [];
+      //     isLoaded = false;
+      //   });
+      //   return;
+      // }
+      // print(FirebaseAuth.instance.currentUser!.email);
+      // print(widget.budget.sharedOwnerMember);
+      // setState(() {
+      //   // members = response;
+      //   isLoaded = true;
+      // });
     });
   }
 
@@ -92,26 +92,26 @@ class _SharedBudgetSettingsState extends State<SharedBudgetSettings> {
         ),
       );
     }
-    if (updateEntry) {
-      await removeMemberFromBudget(
-          widget.budget.sharedKey!, originalMember, widget.budget);
-      await addMemberToBudget(widget.budget.sharedKey!, member, widget.budget);
-      setState(() {
-        int index = members.indexOf(originalMember);
-        members.removeAt(index);
-        members.add(member);
-      });
-    } else {
-      await addMemberToBudget(widget.budget.sharedKey!, member, widget.budget);
-      setState(() {
-        members.add(member);
-      });
-    }
+    // if (updateEntry) {
+    //   await removeMemberFromBudget(
+    //       widget.budget.sharedKey!, originalMember, widget.budget);
+    //   await addMemberToBudget(widget.budget.sharedKey!, member, widget.budget);
+    //   setState(() {
+    //     int index = members.indexOf(originalMember);
+    //     members.removeAt(index);
+    //     members.add(member);
+    //   });
+    // } else {
+    //   await addMemberToBudget(widget.budget.sharedKey!, member, widget.budget);
+    //   setState(() {
+    //     members.add(member);
+    //   });
+    // }
   }
 
   removeMember(String member) async {
-    await removeMemberFromBudget(
-        widget.budget.sharedKey!, member, widget.budget);
+    // await removeMemberFromBudget(
+    //     widget.budget.sharedKey!, member, widget.budget);
     setState(() {
       int index = members.indexOf(member);
       members.removeAt(index);
@@ -395,20 +395,20 @@ class _SharedBudgetSettingsState extends State<SharedBudgetSettings> {
                       onSubmit: () async {
                         popRoute(context);
                         openLoadingPopup(context);
-                        bool status =
-                            await removedSharedFromBudget(widget.budget);
-                        if (status == false) {
-                          openSnackbar(
-                            SnackbarMessage(
-                              icon: appStateSettings["outlinedIcons"]
-                                  ? Icons.warning_outlined
-                                  : Icons.warning_rounded,
-                              description:
-                                  "There was a problem removing the shared budget from the server. Please try again later.",
-                            ),
-                          );
-                          return;
-                        }
+                        // bool status =
+                        //     // await removedSharedFromBudget(widget.budget);
+                        // if (status == false) {
+                        //   openSnackbar(
+                        //     SnackbarMessage(
+                        //       icon: appStateSettings["outlinedIcons"]
+                        //           ? Icons.warning_outlined
+                        //           : Icons.warning_rounded,
+                        //       description:
+                        //           "There was a problem removing the shared budget from the server. Please try again later.",
+                        //     ),
+                        //   );
+                        //   return;
+                        // }
                         popRoute(context);
                         popRoute(context);
                       },
@@ -429,19 +429,19 @@ class _SharedBudgetSettingsState extends State<SharedBudgetSettings> {
                   label: "Leave Shared Group",
                   onTap: () async {
                     openLoadingPopup(context);
-                    bool status = await leaveSharedBudget(widget.budget);
-                    if (status == false) {
-                      openSnackbar(
-                        SnackbarMessage(
-                          icon: appStateSettings["outlinedIcons"]
-                              ? Icons.warning_outlined
-                              : Icons.warning_rounded,
-                          description:
-                              "There was a problem removing the shared budget from the server. Please Try again later.",
-                        ),
-                      );
-                      return;
-                    }
+                    // bool status = await leaveSharedBudget(widget.budget);
+                    // if (status == false) {
+                    //   openSnackbar(
+                    //     SnackbarMessage(
+                    //       icon: appStateSettings["outlinedIcons"]
+                    //           ? Icons.warning_outlined
+                    //           : Icons.warning_rounded,
+                    //       description:
+                    //           "There was a problem removing the shared budget from the server. Please Try again later.",
+                    //     ),
+                    //   );
+                    //   return;
+                    // }
                     popRoute(context);
                     openPopup(
                       context,
